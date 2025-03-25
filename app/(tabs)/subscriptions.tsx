@@ -1,33 +1,7 @@
 import { View, Text, StyleSheet, ScrollView, Pressable, Image } from 'react-native';
-import { Link } from 'expo-router';
+import { Link, router } from 'expo-router';
 import { Plus } from 'lucide-react-native';
-
-const SUBSCRIPTIONS = [
-  {
-    id: '1',
-    name: 'Netflix',
-    plan: 'Standard',
-    amount: 15.99,
-    billingCycle: 'Monthly',
-    logo: 'https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?q=80&w=100&h=100&auto=format&fit=crop',
-  },
-  {
-    id: '2',
-    name: 'Spotify',
-    plan: 'Premium',
-    amount: 9.99,
-    billingCycle: 'Monthly',
-    logo: 'https://images.unsplash.com/photo-1614680376593-902f74cf0d41?q=80&w=100&h=100&auto=format&fit=crop',
-  },
-  {
-    id: '3',
-    name: 'Disney+',
-    plan: 'Basic',
-    amount: 7.99,
-    billingCycle: 'Monthly',
-    logo: 'https://images.unsplash.com/photo-1616469829581-73993eb86b02?q=80&w=100&h=100&auto=format&fit=crop',
-  },
-];
+import { SUBSCRIPTIONS } from '../../constants/data'
 
 export default function SubscriptionsScreen() {
   return (
@@ -35,11 +9,9 @@ export default function SubscriptionsScreen() {
       <ScrollView>
         <View style={styles.header}>
           <Text style={styles.title}>Your Subscriptions</Text>
-          <Link href="subscriptions/add" asChild>
-            <Pressable style={styles.addButton}>
-              <Plus size={24} color="#fff" />
-            </Pressable>
-          </Link>
+          <Pressable style={styles.addButton} onPress={() => router.push("/modal/add-subscription")}>
+            <Plus size={24} color="#fff" />
+          </Pressable>
         </View>
 
         <View style={styles.subscriptionsList}>
