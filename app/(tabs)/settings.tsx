@@ -5,15 +5,15 @@ export default function SettingsScreen() {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>Settings</Text>
+        <Text style={styles.title}>Ajustes</Text>
       </View>
 
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Notifications</Text>
+        <Text style={styles.sectionTitle}>Notificaciones</Text>
         <View style={styles.settingItem}>
           <View style={styles.settingInfo}>
             <Bell size={24} color="#6b7280" />
-            <Text style={styles.settingLabel}>Payment Reminders</Text>
+            <Text style={styles.settingLabel}>Recordatorio de Pagos</Text>
           </View>
           <Switch 
             value={true}
@@ -25,31 +25,21 @@ export default function SettingsScreen() {
       </View>
 
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Payment Methods</Text>
-        <Pressable style={styles.settingItem}>
-          <View style={styles.settingInfo}>
-            <CreditCard size={24} color="#6b7280" />
-            <Text style={styles.settingLabel}>Manage Payment Methods</Text>
-          </View>
-        </Pressable>
-      </View>
-
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Security</Text>
+        <Text style={styles.sectionTitle}>Seguridad</Text>
         <Pressable style={styles.settingItem}>
           <View style={styles.settingInfo}>
             <Shield size={24} color="#6b7280" />
-            <Text style={styles.settingLabel}>Privacy Settings</Text>
+            <Text style={styles.settingLabel}>Ajustes de Privacidad</Text>
           </View>
         </Pressable>
       </View>
 
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Support</Text>
+        <Text style={styles.sectionTitle}>Soprte</Text>
         <Pressable style={styles.settingItem}>
           <View style={styles.settingInfo}>
             <HelpCircle size={24} color="#6b7280" />
-            <Text style={styles.settingLabel}>Help Center</Text>
+            <Text style={styles.settingLabel}>Centro de Ayuda</Text>
           </View>
         </Pressable>
       </View>

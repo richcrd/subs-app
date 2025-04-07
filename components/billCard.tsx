@@ -6,17 +6,21 @@ import Section from '@/components/Section';
 interface Bill {
     id: string;
     name: string;
-    logo: string;
-    date: string;
+    logo?: string;
     amount: number;
-}
+    billingCycle: string;
+    date: string;
+    plan?: string;
+    category?: string;
+    color?: string;
+  }
 
 interface UpcomingBillsProps {
     title?: string;
     bills: Bill[];
 }
 
-const UpcomingBillsSection: React.FC<UpcomingBillsProps> = ({ title = 'Upcoming Bills', bills }) => {
+const UpcomingBillsSection: React.FC<UpcomingBillsProps> = ({ title = 'Próximos Pagos', bills }) => {
     const router = useRouter()
 
     return (
@@ -25,12 +29,12 @@ const UpcomingBillsSection: React.FC<UpcomingBillsProps> = ({ title = 'Upcoming 
                 <Pressable
                     key={bill.id}
                     style={styles.billCard}
-                    onPress={() => router.push(`/subscriptions/${bill.id}`)}
+                    onPress={() => router.push(`/modal/${bill.id}`)}
                 >
-                    <Image source={{ uri: bill.logo }} style={styles.logo} />
+                    <View style={[styles.colorBox, { backgroundColor: bill.color || '#ddd' }]} />
                     <View style={styles.billInfo}>
                         <Text style={styles.billName}>{bill.name}</Text>
-                        <Text style={styles.billDate}>Due {new Date(bill.date).toLocaleDateString()}</Text>
+                        <Text style={styles.billDate}>Vence {new Date(bill.date).toLocaleDateString()}</Text>
                     </View>
                     <Text style={styles.billAmount}>${bill.amount.toFixed(2)}</Text>
                 </Pressable>
@@ -78,6 +82,12 @@ const styles = StyleSheet.create({
         color: '#111827',
         fontFamily: 'Inter_600SemiBold',
     },
+    colorBox: {
+        width: 40,
+        height: 40,
+        borderRadius: 8,
+      },
+      
 });
 
 export default UpcomingBillsSection;

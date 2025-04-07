@@ -1,26 +1,28 @@
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { useSubscriptionStore } from '@/store/useSubscriptionStore';
 
 export default function AnalyticsScreen() {
-  const monthlyTotal = 33.97; // Sum of all subscriptions
+  const { subscriptions, loadSubscriptions } = useSubscriptionStore();
+  const totalMonthly = subscriptions.reduce((sum, sub) => sum + sub.amount, 0);
   const categories = [
-    { name: 'Entertainment', amount: 23.98 }, // Netflix + Disney+
-    { name: 'Music', amount: 9.99 }, // Spotify
+    { name: 'Entretenimiento', amount: 23.98 }, // Netflix + Disney+
+    { name: 'Música', amount: 9.99 }, // Spotify
   ];
 
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>Spending Analytics</Text>
-        <Text style={styles.subtitle}>Monthly Overview</Text>
+        <Text style={styles.title}>Estadísticas de Gastos</Text>
+        <Text style={styles.subtitle}>Resumen Mensual</Text>
       </View>
 
       <View style={styles.totalCard}>
-        <Text style={styles.totalLabel}>Total Monthly Spend</Text>
-        <Text style={styles.totalAmount}>${monthlyTotal.toFixed(2)}</Text>
+        <Text style={styles.totalLabel}>Total Gastos Mensual</Text>
+        <Text style={styles.totalAmount}>${totalMonthly.toFixed(2)}</Text>
       </View>
 
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Spending by Category</Text>
+        <Text style={styles.sectionTitle}>Gastos por Categoría</Text>
         {categories.map((category, index) => (
           <View key={index} style={styles.categoryCard}>
             <View style={styles.categoryInfo}>
@@ -29,7 +31,7 @@ export default function AnalyticsScreen() {
                 <View 
                   style={[
                     styles.progressFill, 
-                    { width: `${(category.amount / monthlyTotal) * 100}%` }
+                    { width: `${(category.amount / totalMonthly) * 100}%` }
                   ]} 
                 />
               </View>
@@ -40,10 +42,10 @@ export default function AnalyticsScreen() {
       </View>
 
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Insights</Text>
+        <Text style={styles.sectionTitle}>Perspectivas</Text>
         <View style={styles.insightCard}>
           <Text style={styles.insightText}>
-            Entertainment makes up {((23.98 / monthlyTotal) * 100).toFixed(0)}% of your monthly subscriptions
+            El entretenimiento representa el {((23.98 / totalMonthly) * 100).toFixed(0)}% de tus suscripciones mensuales
           </Text>
         </View>
       </View>

@@ -6,7 +6,7 @@ export default function SpendingChart({ subscriptions }) {
   
   // Mock data for the last 6 months
   const data = {
-    labels: ['Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr'],
+    labels: ['Nov', 'Dic', 'Ene', 'Feb', 'Mar', 'Abr'],
     datasets: [{
       data: [
         monthlyTotal * 0.8,

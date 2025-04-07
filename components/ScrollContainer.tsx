@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 
 interface ScrollContainerProps {
     children?: ReactNode;
@@ -8,7 +8,9 @@ interface ScrollContainerProps {
 const ScrollContainer: React.FC<ScrollContainerProps> = ({ children }) => {
     return (
         <View style={styles.container}>
-            {children}
+            <ScrollView>
+                {children}
+            </ScrollView>
         </View>
     );
 };
