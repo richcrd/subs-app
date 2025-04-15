@@ -6,7 +6,6 @@ import Section from '@/components/Section';
 interface Bill {
     id: string;
     name: string;
-    logo?: string;
     amount: number;
     billingCycle: string;
     date: string;

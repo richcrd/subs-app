@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 export default function HomeScreen() {
   const { subscriptions, loadSubscriptions } = useSubscriptionStore();
   const totalMonthly = subscriptions.reduce((sum, sub) => sum + sub.amount, 0);
-  
+
   useEffect(() => {
     loadSubscriptions();
   }, []);
@@ -17,19 +17,19 @@ export default function HomeScreen() {
   return (
     <ScrollContainer>
       <View style={styles.header}>
-        <Text style={styles.monthlyTotal}>
-          ${totalMonthly.toFixed(2)}
-          <Text style={styles.monthlyTotalLabel}> /mes</Text>
-        </Text>
-        <Pressable style={styles.addButton} onPress={() => router.push("/modal/add-subscription")}>
+          <Text style={styles.monthlyTotal}>
+            ${totalMonthly.toFixed(2)}
+            <Text style={styles.monthlyTotalLabel}> /mes</Text>
+          </Text>
+          <Pressable style={styles.addButton} onPress={() => router.push("/modal/add-subscription")}>
             <Plus size={24} color="#fff" />
-        </Pressable>
+          </Pressable>
       </View>
 
       <View>
         <UpcomingBillsSection bills={subscriptions} />
       </View>
-    </ScrollContainer>
+    </ScrollContainer >
   );
 }
 

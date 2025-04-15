@@ -17,6 +17,9 @@ export type Subscription = {
 
 type State = {
   subscriptions: Subscription[];
+  categories: string[];
+  plans: string[];
+  billingCycles: string[],
   loadSubscriptions: () => Promise<void>;
   addSubscription: (sub: Subscription) => void;
   updateSubscription: (sub: Subscription) => void;
@@ -25,6 +28,9 @@ type State = {
 
 export const useSubscriptionStore = create<State>((set, get) => ({
   subscriptions: [],
+   categories: ['Entretenimiento', 'Educacion', 'Productividad'],
+   plans: ['Basico', 'Standard', 'Premium'],
+   billingCycles: ['Mensual'],
 
   loadSubscriptions: async () => {
     const saved = await SecureStore.getItemAsync(STORAGE_KEY);
