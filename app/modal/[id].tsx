@@ -57,14 +57,28 @@ const SubscriptionDetailModal = () => {
 
   const handleDelete = () => {
     if (!subs) return;
-    deleteSubscription(subs.id);
-    router.back();
+
+    Alert.alert(
+      'Eliminar suscripción',
+      `¿Estás seguro de que deseas eliminar "${subs.name}"?`,
+      [
+        { text: 'Cancelar', style: 'cancel' },
+        {
+          text: 'Eliminar',
+          style: 'destructive',
+          onPress: () => {
+            deleteSubscription(subs.id);
+            router.back();
+          },
+        },
+      ]
+    );
   };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Input label="Nombre del Servicio" value={name} onChangeText={setName} style={styles.input} />
-      
+
       <Select
         label="Tipo de plan"
         value={plan}
