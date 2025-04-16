@@ -8,6 +8,11 @@ import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
 import * as eva from '@eva-design/eva';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { registerForPushNotificationsAsync } from '@/utils/notifications';
+import LoadingScreen from '@/components/Layout/LoadingScreen';
+
+const screenOptions = {
+  headerShown: false,
+}
 
 export default function RootLayout() {
   useFrameworkReady();
@@ -23,15 +28,15 @@ export default function RootLayout() {
   });
 
   if (!fontsLoaded) {
-    return null;
+    return <LoadingScreen />;
   }
 
   return (
     <>
       <IconRegistry icons={EvaIconsPack} />
       <ApplicationProvider {...eva} theme={eva.light}>
-        <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack screenOptions={screenOptions}>
+          <Stack.Screen name="(tabs)" options={screenOptions} />
           <Stack.Screen
             name="modal/add-subscription"
             options={{ presentation: 'modal', title: 'Add Subscription' }}
