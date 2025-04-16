@@ -1,8 +1,9 @@
-import { View, Text, StyleSheet, Pressable, ScrollView, TextInput, } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TextInput, } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { useSubscriptionStore } from '@/store/useSubscriptionStore';
-import { Select, SelectItem, IndexPath, Input, Datepicker, ButtonGroup, Button } from '@ui-kitten/components';
+import { Select, SelectItem, IndexPath, Input, Datepicker, Button } from '@ui-kitten/components';
+import { scheduleReminderNotification } from '@/utils/notifications';
 
 export default function AddSubscriptionModal() {
   const router = useRouter();
@@ -24,7 +25,7 @@ export default function AddSubscriptionModal() {
   const [billingCycleIndex, setBillingCycleIndex] = useState<IndexPath | undefined>(undefined);
 
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!name || !amount || !date || !plan || !category || !billingCycle) return;
 
     addSubscription({
@@ -37,6 +38,10 @@ export default function AddSubscriptionModal() {
       category,
       color,
     });
+
+    if (useSubscriptionStore.getState().notificationsEnabled) {
+      await scheduleReminderNotification(name, date);
+    }
 
     router.back();
   };
@@ -203,14 +208,10 @@ const styles = StyleSheet.create({
     color: '#444',
   },
   saveButton: {
-    padding: 14,
-    borderRadius: 8,
     alignItems: 'center',
   },
   closeButton: {
     marginTop: 20,
-    padding: 10,
-    borderRadius: 8,
     alignItems: 'center',
   },
 });

@@ -1,7 +1,10 @@
 import { View, Text, StyleSheet, ScrollView, Pressable, Switch } from 'react-native';
 import { Bell, CreditCard, Shield, CircleHelp as HelpCircle } from 'lucide-react-native';
+import { useSubscriptionStore } from '@/store/useSubscriptionStore';
+import TestNotificationButton from '@/components/TestNotificationButton';
 
 export default function SettingsScreen() {
+  const { notificationsEnabled, toggleNotifications } = useSubscriptionStore();
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
@@ -13,18 +16,20 @@ export default function SettingsScreen() {
         <View style={styles.settingItem}>
           <View style={styles.settingInfo}>
             <Bell size={24} color="#6b7280" />
-            <Text style={styles.settingLabel}>Recordatorio de Pagos</Text>
+            <Text style={styles.settingLabel}>Notificaciones</Text>
           </View>
           <Switch 
-            value={true}
-            onValueChange={() => {}}
+            value={notificationsEnabled}
+            onValueChange={toggleNotifications}
             trackColor={{ false: '#e5e5e5', true: '#818cf8' }}
-            thumbColor={true ? '#6366f1' : '#fff'}
+            thumbColor={notificationsEnabled ? '#6366f1' : '#fff'}
           />
         </View>
       </View>
 
-      <View style={styles.section}>
+      <TestNotificationButton />
+
+      {/* <View style={styles.section}>
         <Text style={styles.sectionTitle}>Seguridad</Text>
         <Pressable style={styles.settingItem}>
           <View style={styles.settingInfo}>
@@ -32,10 +37,10 @@ export default function SettingsScreen() {
             <Text style={styles.settingLabel}>Ajustes de Privacidad</Text>
           </View>
         </Pressable>
-      </View>
+      </View> */}
 
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Soprte</Text>
+        <Text style={styles.sectionTitle}>Soporte</Text>
         <Pressable style={styles.settingItem}>
           <View style={styles.settingInfo}>
             <HelpCircle size={24} color="#6b7280" />
