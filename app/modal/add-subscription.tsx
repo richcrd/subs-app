@@ -39,10 +39,6 @@ export default function AddSubscriptionModal() {
       color,
     });
 
-    if (useSubscriptionStore.getState().notificationsEnabled) {
-      await scheduleReminderNotification(name, date);
-    }
-
     router.back();
   };
 

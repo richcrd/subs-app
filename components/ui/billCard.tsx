@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Pressable, Image } from 'react-native';
 import { useRouter } from 'expo-router';
-import Section from '@/components/Section';
+import Section from '@/components/Layout/Section';
 
 interface Bill {
     id: string;

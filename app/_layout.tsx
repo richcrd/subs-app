@@ -53,6 +53,18 @@ export default function RootLayout() {
               },
             })}
           />
+          <Stack.Screen
+            name="modal/help"
+            options={() => ({
+              presentation: 'modal',
+              title: 'Centro de Ayuda',
+              headerShown: true,
+              headerTitleStyle: {
+                fontWeight: 'bold',
+                fontSize: 19,
+              },
+            })}
+          />
 
         </Stack>
         <StatusBar style="light" />

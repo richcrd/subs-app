@@ -1,25 +1,9 @@
 import { create } from 'zustand';
 import * as SecureStore from 'expo-secure-store';
 import { scheduleReminderNotification, cancelScheduledNotifications } from '@/utils/notifications';
+import { Subscription } from '@/types/Subscription';
 
 const STORAGE_KEY = 'subscriptions_store';
-
-export type Subscription = {
-  id: string;
-  name: string;
-  plan: string;
-  amount: number;
-  billingCycle: string;
-  date: string;
-  category: string;
-  color?: string;
-  logo?: string;
-  notificationIds?: {
-    reminderId: string;
-    chargeDayId: string;
-    confirmationId: string;
-  }
-};
 
 type State = {
   subscriptions: Subscription[];
