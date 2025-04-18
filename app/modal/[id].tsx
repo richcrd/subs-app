@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { Select, SelectItem, IndexPath, Input, Datepicker, Button } from '@ui-kitten/components';
 import { styles, SubscriptionStyles } from '@/styles/SubscriptionStyles';
+import { colorOptions } from '@/constants/colors';
 
 const SubscriptionDetailModal = () => {
   const { id } = useLocalSearchParams();
@@ -12,7 +13,6 @@ const SubscriptionDetailModal = () => {
 
   const subs = subscriptions.find((sub) => sub.id === id);
 
-  const colors = ["#EF4444", "#F97316", "#FACC15", "#10B981", '#3B82F6', '#8B5CF6', '#EC4899', '#000'];
   const [selectedColorIndex, setSelectedColorIndex] = useState<IndexPath | undefined>(undefined);
   const [name, setName] = useState('');
   const [plan, setPlan] = useState('');
@@ -25,6 +25,7 @@ const SubscriptionDetailModal = () => {
   const [planIndex, setPlanIndex] = useState<IndexPath | undefined>();
   const [categoryIndex, setCategoryIndex] = useState<IndexPath | undefined>();
   const [billingCycleIndex, setBillingCycleIndex] = useState<IndexPath | undefined>();
+  
   useEffect(() => {
     if (subs) {
       setName(subs.name);
@@ -37,7 +38,7 @@ const SubscriptionDetailModal = () => {
       setPlanIndex(new IndexPath(plans.indexOf(subs.plan)));
       setCategoryIndex(new IndexPath(categories.indexOf(subs.category)));
       setBillingCycleIndex(new IndexPath(billingCycles.indexOf(subs.billingCycle)));
-      setSelectedColorIndex(new IndexPath(colors.indexOf(subs.color || '')));
+      setSelectedColorIndex(new IndexPath(colorOptions.findIndex((c) => c.hex === subs.color)));
     }
   }, [subs]);
 
@@ -133,23 +134,23 @@ const SubscriptionDetailModal = () => {
         onSelect={(index) => {
           const i = Array.isArray(index) ? index[0].row : index.row;
           setSelectedColorIndex(new IndexPath(i));
-          setColor(colors[i]);
+          setColor(colorOptions[i].hex);
         }}
         style={styles.input}
       >
-        {colors.map((colorOption, index) => (
+        {colorOptions.map((colorOption, index) => (
           <SelectItem
             key={index}
             title={() => (
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <View style={{
-                  backgroundColor: colorOption,
+                  backgroundColor: colorOption.hex,
                   width: 20,
                   height: 20,
                   borderRadius: 4,
                   marginRight: 8,
                 }} />
-                <Text>{colorOption}</Text>
+                <Text>{colorOption.name}</Text>
               </View>
             )}
           />
