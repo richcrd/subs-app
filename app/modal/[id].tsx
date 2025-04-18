@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { Select, SelectItem, IndexPath, Input, Datepicker, Button } from '@ui-kitten/components';
+import { styles, SubscriptionStyles } from '@/styles/SubscriptionStyles';
 
 const SubscriptionDetailModal = () => {
   const { id } = useLocalSearchParams();
@@ -76,7 +77,7 @@ const SubscriptionDetailModal = () => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView contentContainerStyle={SubscriptionStyles.container}>
       <Input label="Nombre del Servicio" value={name} onChangeText={setName} style={styles.input} />
 
       <Select
@@ -163,31 +164,3 @@ const SubscriptionDetailModal = () => {
 };
 
 export default SubscriptionDetailModal;
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 20,
-    backgroundColor: 'white',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    alignSelf: 'center',
-  },
-  input: {
-    marginBottom: 12,
-  },
-  saveButton: {
-    marginTop: 10,
-    borderRadius: 8,
-  },
-  deleteButton: {
-    marginTop: 10,
-    borderRadius: 8,
-  },
-  closeButton: {
-    marginTop: 20,
-    borderRadius: 8,
-  },
-});

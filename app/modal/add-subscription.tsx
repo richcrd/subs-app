@@ -3,7 +3,8 @@ import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { useSubscriptionStore } from '@/store/useSubscriptionStore';
 import { Select, SelectItem, IndexPath, Input, Datepicker, Button } from '@ui-kitten/components';
-import { scheduleReminderNotification } from '@/utils/notifications';
+import { SubscriptionStyles } from '@/styles/SubscriptionStyles';
+import { colorOptions } from '@/constants/colors';
 
 export default function AddSubscriptionModal() {
   const router = useRouter();
@@ -43,20 +44,20 @@ export default function AddSubscriptionModal() {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Agregar Subscripción</Text>
+    <ScrollView contentContainerStyle={SubscriptionStyles.container}>
+      <Text style={SubscriptionStyles.title}>Agregar Subscripción</Text>
       <Input
         placeholder="Netflix, Spotify, Youtube..."
         value={name}
         onChangeText={setName}
-        style={styles.input}
+        style={SubscriptionStyles.input}
         label="Nombre del Servicio"
       />
       <Select
         placeholder='Selecciona una opción'
         value={plan}
         label="Tipo de plan"
-        style={styles.input}
+        style={SubscriptionStyles.input}
         selectedIndex={planIndex}
         onSelect={(index: IndexPath | IndexPath[]) => {
           if (Array.isArray(index)) {
@@ -79,12 +80,12 @@ export default function AddSubscriptionModal() {
         placeholder="$4.99"
         value={amount}
         onChangeText={setAmount}
-        style={styles.input}
+        style={SubscriptionStyles.input}
         label="Monto Mensual"
         keyboardType='numeric'
       />
       <Datepicker
-        style={styles.input}
+        style={SubscriptionStyles.input}
         label="Fecha de cobro"
         date={date}
         onSelect={nextDate => setDate(nextDate)}
@@ -94,7 +95,7 @@ export default function AddSubscriptionModal() {
         placeholder='Selecciona una opción'
         value={category}
         label='Categoria'
-        style={styles.input}
+        style={SubscriptionStyles.input}
         selectedIndex={categoryIndex}
         onSelect={(index: IndexPath | IndexPath[]) => {
           if (Array.isArray(index)) {
@@ -115,7 +116,7 @@ export default function AddSubscriptionModal() {
         placeholder='Selecciona una opción'
         value={billingCycle}
         label="Periodo de cobro"
-        style={styles.input}
+        style={SubscriptionStyles.input}
         selectedIndex={billingCycleIndex}
         onSelect={(index: IndexPath | IndexPath[]) => {
           if (Array.isArray(index)) {
@@ -135,79 +136,45 @@ export default function AddSubscriptionModal() {
       <Select
         placeholder="Seleccione un color"
         label="Color del Servicio"
-        value={color}
+        value={selectedColorIndex !== undefined ? colorOptions[selectedColorIndex.row].name : ''}
         selectedIndex={selectedColorIndex}
-        style={styles.input}
+        style={SubscriptionStyles.input}
         onSelect={(index: IndexPath | IndexPath[]) => {
           const i = Array.isArray(index) ? index[0].row : index.row;
           setSelectedColorIndex(Array.isArray(index) ? index[0] : index);
-          setColor(colors[i]);
+          setColor(colorOptions[i].hex);
         }}
       >
-        {colors.map((colorOption, index) => (
+        {colorOptions.map((colorOption, index) => (
           <SelectItem
             key={index}
             title={() => (
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <View style={{
-                  backgroundColor: colorOption,
+                  backgroundColor: colorOption.hex,
                   width: 20,
                   height: 20,
                   borderRadius: 4,
                   marginRight: 8,
                 }} />
-                <Text>{colorOption}</Text>
+                <Text>{colorOption.name}</Text>
               </View>
             )}
           />
         ))}
       </Select>
       <Button
-        style={styles.saveButton}
+        style={SubscriptionStyles.saveButton}
         onPress={handleSave}
       >
         Guardar
       </Button>
       <Button
         status='basic'
-        style={styles.closeButton}
+        style={SubscriptionStyles.closeButton}
         onPress={() => router.back()}
       >Cerrar
       </Button>
     </ScrollView>
   );
 }
-
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 20,
-    backgroundColor: 'white',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    alignSelf: 'center',
-  },
-  input: {
-    padding: 12,
-    borderRadius: 8,
-    marginBottom: 12,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-  },
-  label: {
-    fontSize: 14,
-    fontWeight: '500',
-    marginBottom: 6,
-    color: '#444',
-  },
-  saveButton: {
-    alignItems: 'center',
-  },
-  closeButton: {
-    marginTop: 20,
-    alignItems: 'center',
-  },
-});
