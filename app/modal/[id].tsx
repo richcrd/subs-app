@@ -1,9 +1,9 @@
 import { useSubscriptionStore } from '@/store/useSubscriptionStore';
 import { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native';
+import { View, Text, ScrollView, Alert } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { Select, SelectItem, IndexPath, Input, Datepicker, Button } from '@ui-kitten/components';
-import { styles, SubscriptionStyles } from '@/styles/SubscriptionStyles';
+import { SubscriptionStyles } from '@/styles/SubscriptionStyles';
 import { colorOptions } from '@/constants/colors';
 
 const SubscriptionDetailModal = () => {
@@ -25,7 +25,7 @@ const SubscriptionDetailModal = () => {
   const [planIndex, setPlanIndex] = useState<IndexPath | undefined>();
   const [categoryIndex, setCategoryIndex] = useState<IndexPath | undefined>();
   const [billingCycleIndex, setBillingCycleIndex] = useState<IndexPath | undefined>();
-  
+
   useEffect(() => {
     if (subs) {
       setName(subs.name);
@@ -79,7 +79,7 @@ const SubscriptionDetailModal = () => {
 
   return (
     <ScrollView contentContainerStyle={SubscriptionStyles.container}>
-      <Input label="Nombre del Servicio" value={name} onChangeText={setName} style={styles.input} />
+      <Input label="Nombre del Servicio" value={name} onChangeText={setName} style={SubscriptionStyles.input} />
 
       <Select
         label="Tipo de plan"
@@ -90,14 +90,14 @@ const SubscriptionDetailModal = () => {
           setPlanIndex(new IndexPath(idx));
           setPlan(plans[idx]);
         }}
-        style={styles.input}
+        style={SubscriptionStyles.input}
       >
         {plans.map((item, i) => <SelectItem key={i} title={item} />)}
       </Select>
 
-      <Input label="Monto Mensual" value={amount} onChangeText={setAmount} style={styles.input} keyboardType="numeric" />
+      <Input label="Monto Mensual" value={amount} onChangeText={setAmount} style={SubscriptionStyles.input} keyboardType="numeric" />
 
-      <Datepicker label="Fecha de cobro" date={date} onSelect={setDate} style={styles.input} />
+      <Datepicker label="Fecha de cobro" date={date} onSelect={setDate} style={SubscriptionStyles.input} />
 
       <Select
         label="Categoría"
@@ -108,7 +108,7 @@ const SubscriptionDetailModal = () => {
           setCategoryIndex(new IndexPath(idx));
           setCategory(categories[idx]);
         }}
-        style={styles.input}
+        style={SubscriptionStyles.input}
       >
         {categories.map((item, i) => <SelectItem key={i} title={item} />)}
       </Select>
@@ -122,7 +122,7 @@ const SubscriptionDetailModal = () => {
           setBillingCycleIndex(new IndexPath(idx));
           setBillingCycle(billingCycles[idx]);
         }}
-        style={styles.input}
+        style={SubscriptionStyles.input}
       >
         {billingCycles.map((item, i) => <SelectItem key={i} title={item} />)}
       </Select>
@@ -136,7 +136,7 @@ const SubscriptionDetailModal = () => {
           setSelectedColorIndex(new IndexPath(i));
           setColor(colorOptions[i].hex);
         }}
-        style={styles.input}
+        style={SubscriptionStyles.input}
       >
         {colorOptions.map((colorOption, index) => (
           <SelectItem
@@ -157,9 +157,9 @@ const SubscriptionDetailModal = () => {
         ))}
       </Select>
 
-      <Button style={styles.saveButton} onPress={handleUpdate}>Actualizar</Button>
-      <Button status="danger" style={styles.deleteButton} onPress={handleDelete}>Eliminar</Button>
-      <Button status="basic" style={styles.closeButton} onPress={() => router.back()}>Cerrar</Button>
+      <Button style={SubscriptionStyles.saveButton} onPress={handleUpdate}>Actualizar</Button>
+      <Button status="danger" style={SubscriptionStyles.deleteButton} onPress={handleDelete}>Eliminar</Button>
+      <Button status="basic" style={SubscriptionStyles.closeButton} onPress={() => router.back()}>Cerrar</Button>
     </ScrollView>
   );
 };

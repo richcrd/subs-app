@@ -26,27 +26,14 @@ export const SubscriptionStyles = StyleSheet.create({
     },
     saveButton: {
         alignItems: 'center',
+        marginTop: 5,
     },
     closeButton: {
         marginTop: 20,
         alignItems: 'center',
     },
-});
-
-export const styles = StyleSheet.create({
-    input: {
-      marginBottom: 12,
-    },
-    saveButton: {
-      marginTop: 10,
-      borderRadius: 8,
-    },
     deleteButton: {
-      marginTop: 10,
-      borderRadius: 8,
+        marginTop: 10,
+        borderRadius: 8,
     },
-    closeButton: {
-      marginTop: 20,
-      borderRadius: 8,
-    },
-  });
+});
