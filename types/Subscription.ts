@@ -14,3 +14,14 @@ export type Subscription = {
         confirmationId: string;
     }
 };
+
+export type SubscriptionFormData = {
+    name: string;
+    plan: string;
+    amount: string;
+    date: Date;
+    category: string;
+    billingCycle: string;
+    color?: string;
+  };
+  
