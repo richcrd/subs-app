@@ -12,7 +12,7 @@ interface Bill {
     plan?: string;
     category?: string;
     color?: string;
-  }
+}
 
 interface UpcomingBillsProps {
     title?: string;
@@ -22,22 +22,34 @@ interface UpcomingBillsProps {
 const UpcomingBillsSection: React.FC<UpcomingBillsProps> = ({ title = 'Próximos Pagos', bills }) => {
     const router = useRouter()
 
+    const isExpired = (dueDate: string): boolean => {
+        const currentDate = new Date();
+        const due = new Date(dueDate);
+        return due < currentDate;
+    }
+
     return (
         <Section title={title}>
-            {bills.map((bill) => (
-                <Pressable
-                    key={bill.id}
-                    style={styles.billCard}
-                    onPress={() => router.push(`/modal/${bill.id}`)}
-                >
-                    <View style={[styles.colorBox, { backgroundColor: bill.color || '#ddd' }]} />
-                    <View style={styles.billInfo}>
-                        <Text style={styles.billName}>{bill.name}</Text>
-                        <Text style={styles.billDate}>Vence {new Date(bill.date).toLocaleDateString()}</Text>
-                    </View>
-                    <Text style={styles.billAmount}>${bill.amount.toFixed(2)}</Text>
-                </Pressable>
-            ))}
+            {bills.map((bill) => {
+                const hasExpired = isExpired(bill.date);
+
+                return (
+                    <Pressable
+                        key={bill.id}
+                        style={styles.billCard}
+                        onPress={() => router.push(`/modal/${bill.id}`)}
+                    >
+                        <View style={[styles.colorBox, { backgroundColor: bill.color || '#ddd' }]} />
+                        <View style={styles.billInfo}>
+                            <Text style={styles.billName}>{bill.name}</Text>
+                            <Text style={[styles.billDate, { color: hasExpired ? 'red' : '#6b7280' }]}>
+                                Vence {new Date(bill.date).toLocaleDateString()}
+                            </Text>
+                        </View>
+                        <Text style={styles.billAmount}>${bill.amount.toFixed(2)}</Text>
+                    </Pressable>
+                );
+            })}
         </Section>
     );
 }
@@ -85,8 +97,8 @@ const styles = StyleSheet.create({
         width: 40,
         height: 40,
         borderRadius: 8,
-      },
-      
+    },
+
 });
 
 export default UpcomingBillsSection;

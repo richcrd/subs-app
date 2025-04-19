@@ -1,4 +1,4 @@
-import { ScrollView, Alert } from 'react-native';
+import { ScrollView } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { useSubscriptionStore } from '@/store/useSubscriptionStore';
