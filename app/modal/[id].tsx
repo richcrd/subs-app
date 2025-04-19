@@ -5,8 +5,10 @@ import { useSubscriptionStore } from '@/store/useSubscriptionStore';
 import { SubscriptionStyles } from '@/styles/SubscriptionStyles';
 import { SubscriptionFormData } from '@/types/Subscription';
 import SubscriptionForm from '@/components/Form/SubscriptionForm';
-import { Button } from '@ui-kitten/components';
+import { Button, Text } from '@ui-kitten/components';
 import { showAlert } from '@/utils/alert';
+import SubscriptionFormWrapper from '@/components/Form/SubscriptionFormWrapper';
+import { SubscriptionSchemaType } from '@/validation/subscriptionSchema';
 
 export default function SubscriptionDetailModal() {
   const { id } = useLocalSearchParams();
@@ -16,49 +18,35 @@ export default function SubscriptionDetailModal() {
     deleteSubscription,
     updateSubscription,
   } = useSubscriptionStore();
-
-  const subs = subscriptions.find((sub) => sub.id === id);
-
-  const [formData, setFormData] = useState<SubscriptionFormData>({
-    name: '',
-    plan: '',
-    amount: '',
-    date: new Date(),
-    category: '',
-    billingCycle: '',
-    color: '',
-  });
+  const [defaultValues, setDefaultValues] = useState<SubscriptionSchemaType | null>(null);
+  const sub = subscriptions.find((s) => s.id === id);
 
   useEffect(() => {
-    if (subs) {
-      setFormData({
-        name: subs.name,
-        plan: subs.plan,
-        amount: subs.amount.toString(),
-        date: new Date(subs.date),
-        category: subs.category,
-        billingCycle: subs.billingCycle,
-        color: subs.color || '',
+    if (sub) {
+      setDefaultValues({
+        name: sub.name,
+        plan: sub.plan,
+        amount: sub.amount.toString(),
+        date: new Date(sub.date),
+        category: sub.category,
+        billingCycle: sub.billingCycle,
+        color: sub.color,
       });
     }
-  }, [subs]);
+  }, [sub]);
 
-  const handleUpdate = () => {
-    if (!subs) return;
+  const handleUpdate = (data: SubscriptionSchemaType) => {
+    if (!sub) return;
 
     showAlert(
       'Actualizar suscripción',
-      `Estás seguro de que deseas actualizar "${subs.name}"?`,
+      `¿Estás seguro de que deseas actualizar "${sub.name}"?`,
       () => {
         updateSubscription({
-          ...subs,
-          name: formData.name,
-          plan: formData.plan,
-          amount: parseFloat(formData.amount),
-          date: formData.date.toISOString().split('T')[0],
-          category: formData.category,
-          billingCycle: formData.billingCycle,
-          color: formData.color,
+          ...sub,
+          ...data,
+          amount: parseFloat(data.amount),
+          date: data.date.toISOString().split('T')[0],
         });
         router.back();
       },
@@ -82,9 +70,9 @@ export default function SubscriptionDetailModal() {
 
     showAlert(
       'Eliminar suscripción',
-      `Estás seguro de que deseas eliminar "${subs.name}"?`,
+      `Estás seguro de que deseas eliminar "${sub.name}"?`,
       () => {
-        deleteSubscription(subs.id);
+        deleteSubscription(sub.id);
         router.back();
       },
       'Cancelar',
@@ -92,12 +80,11 @@ export default function SubscriptionDetailModal() {
     );
   };
 
+  if (!defaultValues) return null;
+
   return (
     <ScrollView contentContainerStyle={SubscriptionStyles.container}>
-      <SubscriptionForm formData={formData} setFormData={setFormData} />
-      <Button style={SubscriptionStyles.saveButton} onPress={handleUpdate}>
-        Actualizar
-      </Button>
+      <SubscriptionFormWrapper onSave={handleUpdate} defaultValues={defaultValues} />
       <Button
         status="danger"
         style={SubscriptionStyles.deleteButton}

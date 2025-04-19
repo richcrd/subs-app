@@ -39,13 +39,13 @@ export default function RootLayout() {
           <Stack.Screen name="(tabs)" options={screenOptions} />
           <Stack.Screen
             name="modal/add-subscription"
-            options={{ presentation: 'modal', title: 'Add Subscription' }}
+            options={{ presentation: 'modal', title: 'Agregars Suscripción' }}
           />
           <Stack.Screen
             name="modal/[id]"
             options={() => ({
               presentation: 'modal',
-              title: 'Detalles Subscripción',
+              title: 'Detalles Suscripción',
               headerShown: true,
               headerTitleStyle: {
                 fontWeight: 'bold',
