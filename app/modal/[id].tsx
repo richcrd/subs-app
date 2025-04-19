@@ -67,6 +67,16 @@ export default function SubscriptionDetailModal() {
     );
   };
 
+  const handleClose = () => {
+    showAlert(
+      '¿Salir sin guardar?',
+      'Tienes cambios sin guardar. ¿Estás seguro de que deseas salir?',
+      () => router.back(),
+      'Seguir editando',
+      'Salir'
+    );
+  }
+
   const handleDelete = () => {
     if (!subs) return;
 
@@ -98,7 +108,7 @@ export default function SubscriptionDetailModal() {
       <Button
         status="basic"
         style={SubscriptionStyles.closeButton}
-        onPress={() => router.back()}
+        onPress={handleClose}
       >
         Cerrar
       </Button>

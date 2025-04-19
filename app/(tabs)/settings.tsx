@@ -49,7 +49,7 @@ export default function SettingsScreen() {
 
       <View style={SettingStyles.footer}>
         <Text style={SettingStyles.version}>Version 1.0.0</Text>
-      </View>s
+      </View>
     </ScrollView>
   );
 }
