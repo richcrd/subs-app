@@ -1,5 +1,3 @@
-import '@/utils/notificationHandler';
-import { useEffect } from 'react';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useFrameworkReady } from '@/hooks/useFrameworkReady';
@@ -7,7 +5,6 @@ import { useFonts, Inter_400Regular, Inter_600SemiBold, Inter_700Bold } from '@e
 import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
 import * as eva from '@eva-design/eva';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
-import { registerForPushNotificationsAsync } from '@/utils/notifications';
 import LoadingScreen from '@/components/Layout/LoadingScreen';
 
 const screenOptions = {
@@ -16,10 +13,6 @@ const screenOptions = {
 
 export default function RootLayout() {
   useFrameworkReady();
-
-  useEffect(() => {
-    registerForPushNotificationsAsync();
-  }, []);
 
   const [fontsLoaded] = useFonts({
     Inter_400Regular,

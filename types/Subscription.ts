@@ -8,11 +8,6 @@ export type Subscription = {
     category: string;
     color?: string;
     logo?: string;
-    notificationIds?: {
-        reminderId: string;
-        chargeDayId: string;
-        confirmationId: string;
-    }
 };
 
 export type SubscriptionFormData = {

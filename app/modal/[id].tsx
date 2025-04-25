@@ -66,7 +66,7 @@ export default function SubscriptionDetailModal() {
   }
 
   const handleDelete = () => {
-    if (!subs) return;
+    if (!sub) return;
 
     showAlert(
       'Eliminar suscripción',
