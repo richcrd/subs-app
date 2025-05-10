@@ -32,7 +32,7 @@ export default function RootLayout() {
           <Stack.Screen name="(tabs)" options={screenOptions} />
           <Stack.Screen
             name="modal/add-subscription"
-            options={{ presentation: 'modal', title: 'Agregars Suscripción' }}
+            options={{ presentation: 'modal', title: 'Agregar Suscripción', headerShown: true }}
           />
           <Stack.Screen
             name="modal/[id]"

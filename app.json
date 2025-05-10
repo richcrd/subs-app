@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "subs-app",
-    "slug": "subs-app",
+    "name": "ChocoBills",
+    "slug": "ChocoBills",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/subs_logo.png",
@@ -9,13 +9,18 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.devrickk.ChocoBills",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/subs_logo.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.devrickk.ChocoBills"
     },
     "web": {
       "bundler": "metro",
@@ -36,6 +41,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "c050fc73-cd53-41ea-86b8-d236cba7e5b6"
+      }
     }
   }
 }

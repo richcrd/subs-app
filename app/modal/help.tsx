@@ -1,10 +1,7 @@
-import { View, Text, ScrollView, Pressable } from 'react-native';
-import { useRouter } from 'expo-router';
-import { X } from 'lucide-react-native';
+import { View, Text, ScrollView } from 'react-native';
 import { SettingStyles } from '@/styles/SettingStyles';
 
 export default function HelpModal() {
-  const router = useRouter();
 
   return (
     <View style={SettingStyles.modalContainer}>

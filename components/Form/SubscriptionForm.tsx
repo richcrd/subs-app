@@ -11,7 +11,7 @@ import { useFormContext, Controller } from 'react-hook-form';
 import { SubscriptionStyles } from '@/styles/SubscriptionStyles';
 import { useSubscriptionStore } from '@/store/useSubscriptionStore';
 import { colorOptions } from '@/constants/colors';
-import { SubscriptionSchemaType } from '@/validations/subscriptionSchema';
+import { SubscriptionSchemaType } from '@/validation/subscriptionSchema';
 
 type Props = {
   onSubmit?: () => void;
@@ -160,7 +160,6 @@ export default function SubscriptionForm({ onSubmit }: Props) {
             placeholder="Escoge un color"
             status={errors.color ? 'danger' : 'basic'}
             caption={errors.color?.message}
-            placeholder="Selecciona un color"
           >
             {colorOptions.map((colorOption, index) => (
               <SelectItem

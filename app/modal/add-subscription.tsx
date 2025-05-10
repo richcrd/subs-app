@@ -1,10 +1,7 @@
 import { ScrollView, Text } from 'react-native';
 import { useRouter } from 'expo-router';
-import { useState } from 'react';
 import { useSubscriptionStore } from '@/store/useSubscriptionStore';
 import { SubscriptionStyles } from '@/styles/SubscriptionStyles';
-import SubscriptionForm from '@/components/Form/SubscriptionForm';
-import { SubscriptionFormData } from '@/types/Subscription';
 import { Button } from '@ui-kitten/components';
 import { showAlert } from '@/utils/alert';
 import SubscriptionFormWrapper from '@/components/Form/SubscriptionFormWrapper';
